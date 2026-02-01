@@ -1,0 +1,437 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Search, ChevronDown } from "lucide-react";
+import { useRouter } from "next/navigation";
+import type { HeroSection as HeroSectionType } from "@standup/contracts/herosection";
+
+interface HeroBentoSectionProps {
+  hero: HeroSectionType;
+}
+
+const HeroBentoSection: React.FC<HeroBentoSectionProps> = ({ hero }) => {
+  const { scrollY } = useScroll();
+  const router = useRouter();
+
+
+  // Parallax and Perspective shifts based on scroll
+  const bgY = useTransform(scrollY, [0, 500], [0, -100]);
+  const perspectiveRotate = useTransform(scrollY, [0, 500], [60, 75]);
+
+  const COLORS = {
+    ORANGE: "#FF6B01",
+    WHITE: "#FFFFFF",
+    DARK: "#353535",
+  };
+
+  const [orbs, setOrbs] = useState<Array<{ width: number; height: number; left: string; top: string; duration: number; delay: number }>>([]);
+
+  useEffect(() => {
+    const generated = Array.from({ length: 15 }).map(() => ({
+      width: Math.random() * 10 + 5,
+      height: Math.random() * 10 + 5,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      duration: Math.random() * 4 + 4,
+      delay: Math.random() * 5,
+    }));
+
+    requestAnimationFrame(() => setOrbs(generated));
+  }, []);
+
+  if (!hero?.isActive) return null;
+
+  return (
+    <section className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-[#0a0a0a]">
+      
+      {/* --- LAYER 1: VIRTUAL PERSPECTIVE GRID (The "Tunnel" Effect) --- */}
+      <motion.div 
+        style={{ perspective: "1000px", y: bgY }}
+        className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none"
+      >
+        <motion.div 
+          style={{ rotateX: perspectiveRotate }}
+          className="relative w-[200vw] h-[200vh] opacity-20"
+        >
+          {/* Vertical Lines (Vanishing toward center) */}
+          <div className="absolute inset-0 grid grid-cols-12 gap-0">
+            {[...Array(13)].map((_, i) => (
+              <div 
+                key={`v-${i}`} 
+                className="h-full w-[1px]" 
+                style={{ backgroundColor: COLORS.ORANGE, boxShadow: `0 0 15px ${COLORS.ORANGE}` }}
+              />
+            ))}
+          </div>
+          {/* Horizontal Lines (Depth) */}
+          <div className="absolute inset-0 flex flex-col justify-between">
+            {[...Array(20)].map((_, i) => (
+              <div 
+                key={`h-${i}`} 
+                className="w-full h-[1px]" 
+                style={{ 
+                  backgroundColor: COLORS.ORANGE, 
+                  opacity: (i / 20), // Lines fade as they get "further"
+                  boxShadow: `0 0 10px ${COLORS.ORANGE}` 
+                }}
+              />
+            ))}
+          </div>
+        </motion.div>
+      </motion.div>
+
+      {/* --- LAYER 2: FLOATING DUST/ORBS (Bento Particles) --- */}
+      <div className="absolute inset-0 z-0">
+        {orbs.map((orb, i) => (
+          <motion.div
+            key={`orb-${i}`}
+            className="absolute rounded-full"
+            style={{
+              backgroundColor: COLORS.ORANGE,
+              width: orb.width,
+              height: orb.height,
+              left: orb.left,
+              top: orb.top,
+              filter: "blur(4px)",
+            }}
+            animate={{
+              y: [0, -40, 0],
+              opacity: [0.2, 0.6, 0.2],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: orb.duration,
+              repeat: Infinity,
+              delay: orb.delay,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* --- MAIN CONTENT --- */}
+      <div className="relative z-10 text-center px-4 max-w-5xl">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+        >
+          <h1 className="text-6xl md:text-8xl font-black italic tracking-tighter leading-tight mb-4 uppercase text-white">
+            {hero.headlineTop} <br />
+            <span
+              style={{
+                color: "transparent",
+                WebkitTextStroke: `2px ${COLORS.ORANGE}`,
+                textShadow: `0 0 40px ${COLORS.ORANGE}66`,
+              }}
+            >
+              {hero.headlineAccent}
+            </span>
+          </h1>
+        </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="text-lg md:text-xl mb-10 text-white/80 font-medium"
+        >
+          {hero.subtext}
+        </motion.p>
+
+        {/* --- ACTIONS --- */}
+        <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
+          <motion.button
+            whileHover={{ scale: 1.05, boxShadow: `0 0 30px ${COLORS.ORANGE}88` }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-3 px-10 py-4 rounded-full font-bold text-xl bg-[#FF6B01] text-white transition-all shadow-xl"
+            onClick={() => router.push("/search?scope=blog")}
+            >
+            <Search size={24} />
+            {hero.ctaSearch}
+            </motion.button>
+
+
+          <motion.button
+            whileHover={{ backgroundColor: `${COLORS.ORANGE}22` }}
+            onClick={() => {
+              const el = document.getElementById("blog");
+              if (el) {
+                el.scrollIntoView({ behavior: "smooth", block: "start" });
+              } else {
+                window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
+              }
+            }}
+            className="flex items-center gap-3 px-10 py-4 rounded-full font-bold text-lg border-2 border-[#FF6B01] text-[#FF6B01] transition-all bg-transparent"
+          >
+            {hero.ctaScroll}
+            <ChevronDown className="animate-bounce" size={24} />
+          </motion.button>
+        </div>
+      </div>
+
+      {/* VIGNETTE GRADIENT (Focus center) */}
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,_transparent_0%,_#0a0a0a_80%)]" />
+    </section>
+  );
+};
+
+export default HeroBentoSection;
+ 
+{journeys.length > 0 && (
+        <React.Suspense>
+          
+          <JourneySection journeys={journeys} />
+        </React.Suspense>
+      )}
+ 
+{/* JourneySection renders Masterclass / Blueprint cards */}
+          {/* @ts-expect-error Server Component importing a client component */}
+ 
+import { graphql } from "../contentful/client";
+
+ 
+./../contracts/blog/blog.contract.js
+ 
+import { MasterclassContract } from "../../contracts/blog/masterclass.contract";
+ 
+{ mapComedyBlueprintEntry } from "../mappers/blog.mapper";
+ 
+BlueprintContract,
+ 
+// ---------- Comedy Blueprints ----------
+ 
+blueprint
+ 
+blueprint.ts
+ 
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { comediansIndex } from "@/lib/algolia";
+import { ThumbsUp, Eye, MessageSquare, Calendar } from "lucide-react";
+
+const COLORS = {
+  ORANGE: "#FF6B01",
+  WHITE: "#FFFFFF",
+  DARK_CARD: "#121212",
+};
+
+interface Comedian {
+  objectID: string; // YouTube Video ID
+  video_title: string;
+  channel_name: string;
+  view_count: number;
+  like_count: number;
+  comment_count?: number; // Added if your index supports it
+  publishedAt: string;
+}
+
+const SearchPage: React.FC = () => {
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<Comedian[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  // Floating Orbs Logic remains same...
+  const [orbs, setOrbs] = useState<any[]>([]);
+  useEffect(() => {
+    const generated = Array.from({ length: 15 }).map(() => ({
+      width: Math.random() * 10 + 5,
+      height: Math.random() * 10 + 5,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      duration: Math.random() * 4 + 4,
+      delay: Math.random() * 5,
+    }));
+    setOrbs(generated);
+  }, []);
+
+  useEffect(() => {
+    if (!query) { setResults([]); return; }
+    setLoading(true);
+    const timeout = setTimeout(() => {
+      comediansIndex.search(query).then((res: any) => {
+        setResults(res.hits || []);
+      }).finally(() => setLoading(false));
+    }, 150);
+    return () => clearTimeout(timeout);
+  }, [query]);
+
+  return (
+    <div className="relative w-full min-h-screen bg-[#0a0a0a] flex flex-col items-center pt-20 pb-20 px-4">
+      {/* Background Orbs */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {orbs.map((orb, i) => (
+          <motion.div
+            key={`orb-${i}`}
+            className="absolute rounded-full"
+            style={{
+              backgroundColor: COLORS.ORANGE,
+              width: orb.width,
+              height: orb.height,
+              left: orb.left,
+              top: orb.top,
+              filter: "blur(6px)",
+            }}
+            animate={{ y: [0, -60, 0], opacity: [0.1, 0.4, 0.1] }}
+            transition={{ duration: orb.duration, repeat: Infinity, delay: orb.delay }}
+          />
+        ))}
+      </div>
+
+      <div className="relative z-10 w-full max-w-5xl flex flex-col items-center">
+        <h1 className="text-4xl md:text-6xl font-black text-white mb-8 uppercase italic tracking-tighter">
+          Search <span style={{ color: COLORS.ORANGE }}>Specials</span>
+        </h1>
+
+        <input
+          type="text"
+          placeholder="Search by comedian or joke..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="w-full max-w-2xl px-8 py-4 rounded-2xl border-2 border-[#FF6B01]/30 bg-[#161616] text-white placeholder:text-white/30 focus:outline-none focus:border-[#FF6B01] transition-all shadow-2xl mb-12"
+        />
+
+        {loading && <div className="text-[#FF6B01] animate-pulse font-bold">TUNING THE MIC...</div>}
+
+        {/* HORIZONTAL RESULTS LIST */}
+        <div className="flex flex-col gap-8 w-full">
+          {results.map((result, i) => (
+  <motion.div
+    key={result.objectID}
+    initial={{ opacity: 0, x: -20 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ delay: i * 0.1 }}
+    /* REDUCED GAP AND MARGINS */
+    className="flex flex-col lg:flex-row bg-[#111111] border border-white/5 rounded-2xl overflow-hidden hover:border-[#FF6B01]/50 transition-all group shadow-xl mb-4"
+  >
+    {/* VIDEO SECTION: Decreased width from 450px to 320px to shrink total height */}
+    <div className="w-full lg:w-[320px] aspect-video bg-black">
+      <iframe
+        width="100%"
+        height="100%"
+        src={`https://www.youtube.com/embed/${result.objectID}?rel=0&modestbranding=1`}
+        title={result.video_title}
+        frameBorder="0"
+        allowFullScreen
+        className="group-hover:opacity-90 transition-opacity"
+      ></iframe>
+    </div>
+
+    {/* CONTENT SECTION: Decreased padding from p-8 to p-5 */}
+    <div className="flex-1 p-5 flex flex-col justify-center">
+      <div>
+        <h2 className="text-xl font-bold text-white leading-tight uppercase italic group-hover:text-[#FF6B01] transition-colors line-clamp-1">
+          {result.video_title}
+        </h2>
+        
+        <p className="text-[#FF6B01] font-bold text-sm mt-1 flex items-center gap-2">
+          {result.channel_name}
+        </p>
+        
+        {/* STATS STRIP: Made icons and text smaller (text-xs) */}
+        <div className="flex flex-wrap gap-4 mt-4">
+          <div className="flex items-center gap-1.5 text-white/40 text-xs">
+            <Eye size={14} color={COLORS.ORANGE} />
+            <span>{result.view_count.toLocaleString()}</span>
+          </div>
+          <div className="flex items-center gap-1.5 text-white/40 text-xs">
+            <ThumbsUp size={14} color={COLORS.ORANGE} />
+            <span>{result.like_count.toLocaleString()}</span>
+          </div>
+          <div className="flex items-center gap-1.5 text-white/40 text-xs">
+            <MessageSquare size={14} color={COLORS.ORANGE} />
+            <span>{result.comment_count?.toLocaleString() || "0"}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* QUICK LINK: Moved closer to content */}
+      <div className="mt-4 pt-3 border-t border-white/5">
+        <button 
+          onClick={() => window.open(`https://www.youtube.com/watch?v=${result.objectID}`)}
+          className="text-[9px] tracking-[0.1em] font-bold text-white/30 uppercase hover:text-[#FF6B01] transition-colors"
+        >
+          View Source →
+        </button>
+      </div>
+    </div>
+  </motion.div>
+))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SearchPage;
+ 
+import { HeroSectionContract } from "@standup/contracts/herosection";
+ 
+Contract
+ 
+Contract
+ 
+IconicLine
+
+ 
+import { graphql } from "./client";
+ 
+./queries
+ 
+
+// queries/comic.queries.ts
+import { graphql } from "./client";
+ 
+./comic
+ 
+ key={item.id}
+            component={motion.div}
+ 
+const history = await getHistory();
+ 
+import type { History } from "@standup/contracts/history";
+ 
+<HistoryTimeline />
+ 
+import { graphql } from "../client";
+ 
+history.mapper.ts
+ 
+import Navbar from "@/components/navbar/navbar";
+ 
+import { graphql } from "./client";
+ 
+const rawHero = await getHero();
+ 
+<HeroSection hero={rawHero} />
+ 
+import { graphql } from "../contentful/client";
+ 
+import { graphql } from "./client";
+ 
+import { graphql } from "./client";
+ 
+import { graphql } from "./client";
+ 
+import { graphql } from "../contentful/client";
+ 
+export * from "./quote";
+ 
+contracts/hero
+ 
+{navbar}
+ 
+export * from "./quote";
+ 
+/cms/quote
+ 
+@/components/home/HomeClient
+ 
+the correct import if the 
+ 
+@standup-india/contracts/quote
+ 
+index.ts
+ 

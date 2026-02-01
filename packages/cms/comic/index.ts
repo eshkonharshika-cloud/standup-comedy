@@ -1,0 +1,1 @@
+export { getAllComics, getComicBySlug } from "../contentful/queries";
