@@ -14,6 +14,13 @@ import ComedianMarquee from "@/components/comic/comic";
 import Footer from "@/components/footer/footer";
 import { JourneySection } from "@/components/blog/blog";
 
+export const metadata = {
+  title: "Discover Standup Comedians & Live Comedy Shows",
+  description:
+    "Explore top standup comedians, upcoming comedy shows, and live events.",
+};
+
+
 export default async function Page() {
   const hero = await getHero();
   const rawQuote = await getQuote();
@@ -34,6 +41,7 @@ export default async function Page() {
 
   return (
     <>
+     <h1 className="sr-only">Discover the Best Standup Comedians & Live Comedy Shows</h1>
       <Navbar />
       <HeroSection hero={hero} />
       <HistoryTimeline entries={history} />
