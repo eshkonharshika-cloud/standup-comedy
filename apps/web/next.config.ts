@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  transpilePackages: ["@standup/cms", "@standup/contracts", "@repo/ui"],
 };
 
 export default nextConfig;
