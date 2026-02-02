@@ -1,0 +1,1 @@
+export { getBentoSection } from "../contentful/queries";

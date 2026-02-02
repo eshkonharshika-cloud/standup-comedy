@@ -52,7 +52,7 @@ describe('Code component', () => {
     })
 
     it('renders empty code block', () => {
-        const { container } = render(<Code>hi</Code>)
+        const { container } = render(<Code></Code>)
         const codeElement = container.querySelector('code')
         expect(codeElement).toBeInTheDocument()
         expect(codeElement?.textContent).toBe('')

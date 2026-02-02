@@ -5,6 +5,47 @@ import { mapHistoryEntry } from "../mappers/history.mapper";
 import { mapComicEntry } from "../mappers/comic.mapper";
 import { mapHeroSection } from "../mappers/herosection.mapper"; // <-- new import for JSON-driven hero
 import { mapComedyBlueprintEntry } from "../mappers/blog.mapper";
+import { mapBentoSectionEntry } from "../mappers/bento.mapper";
+
+export async function getBentoSection() {
+  const QUERY = `
+    query GetBentoSection($limit: Int) {
+      bentoSectionCollection(limit: $limit) {
+        items {
+          sys { id }
+          eyebrow
+          title
+          description
+          cardsCollection {
+            items {
+              sys { id }
+              label
+              title
+              description
+              colSpan
+              rowSpan
+              roundedVariant
+              image {
+                url
+                title
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const data = await graphql<{
+    bentoSectionCollection: { items: any[] };
+  }>(QUERY, { limit: 1 });
+
+  const item = data.bentoSectionCollection.items[0];
+  if (!item) throw new Error("No Bento section found");
+
+  return mapBentoSectionEntry(item);
+}
+
 
 // ---------- Comedy Blueprints ----------
 export async function getComedyBlueprints() {

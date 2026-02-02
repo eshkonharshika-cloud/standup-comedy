@@ -19,6 +19,7 @@
     "./history": "./history/index.ts",
     "./comic": "./comic/index.ts",
     "./herosection": "./herosection/index.ts",
-    "./blog": "./blog/index.ts"
+    "./blog": "./blog/index.ts",
+    "./bento": "./bento/index.ts"
   }
 }
