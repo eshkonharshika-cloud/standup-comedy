@@ -1,11 +1,15 @@
 "use client";
 
-import React from "react";
-
 export default function SitePreview() {
   return (
-    <div className="border border-white/5 rounded-md overflow-hidden">
-      <iframe src="/" className="w-full h-[70vh]" title="Site Preview" />
+    <div className="border border-white/10 rounded-md overflow-hidden">
+      <iframe
+        src="/"
+        loading="lazy"
+        sandbox="allow-scripts allow-same-origin"
+        className="w-full h-[70vh]"
+        title="Site Preview"
+      />
     </div>
   );
 }

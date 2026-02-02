@@ -73,7 +73,7 @@ const Footer: React.FC = () => {
 
           {/* COLUMN 3: GENRES & COLLECTIONS */}
           <div className="md:pl-12">
-            <h2 className="text-white font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Genres</h2>
+            <h1 className="text-white font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Genres</h1>
             <div className="flex flex-wrap gap-2">
               {["Observational", "Satire", "Anecdotal", "Dark Humor", "Crowd Work", "Roast", "Sketch"].map((genre) => (
                 <span

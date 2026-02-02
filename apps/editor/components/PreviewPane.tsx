@@ -16,7 +16,7 @@ export default function PreviewPane() {
   return (
     <div className="space-y-6">
       <div className="mb-2 flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Live Preview</h2>
+        <h1 className="text-2xl font-bold">Live Preview</h1>
         <div className="text-sm text-white/70">Preview updates as you edit</div>
       </div>
 
