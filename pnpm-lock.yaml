@@ -134,10 +134,10 @@ importers:
         specifier: ^5.18.0
         version: 5.18.0(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.3))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.3))(@types/react@19.2.2)(react@19.2.3))(@types/react@19.2.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@standup/cms':
-        specifier: workspace:*
+        specifier: workspace:^1.0.0
         version: link:../../packages/cms
       '@standup/contracts':
-        specifier: workspace:*
+        specifier: workspace:^0.0.1
         version: link:../../packages/contracts
       algoliasearch:
         specifier: ^5.47.0
