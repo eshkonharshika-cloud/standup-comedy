@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    "https://standup-comedy-web-m2g6-j24lpwll1-eshkonharshikas-projects.vercel.app"
+    "https://standup-comedy-web-m2g6.vercel.app/"
   ),
   title: {
     default: "Standup Comedy Platform | Comedians, Shows & Tours",
@@ -48,7 +48,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebSite",
               name: "Standup Comedy Platform",
-              url: "https://standup-comedy-web-m2g6-j24lpwll1-eshkonharshikas-projects.vercel.app",
+              url: "https://standup-comedy-web-m2g6.vercel.app/",
             }),
           }}
         />

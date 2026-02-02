@@ -63,39 +63,39 @@ const ComedianCard: React.FC<ComedianCardProps> = ({ item }) => (
     </div>
 
     <div className="z-10 space-y-4">
-  <div className="border-t border-white/20 pt-4">
-    <p className="text-white/50 text-[10px] uppercase tracking-wider mb-1">
-      Top Achievement
-    </p>
-    <p className="text-base text-white leading-snug">
-      {item.achievement}
-    </p>
+      <div className="border-t border-white/20 pt-4">
+        <p className="text-white/50 text-[10px] uppercase tracking-wider mb-1">
+          Top Achievement
+        </p>
+        <p className="text-base text-white leading-snug">
+          {item.achievement}
+        </p>
 
-    <img src={item.image} alt={item.name} className="w-full h-40 object-cover rounded-lg mt-4" />
-  </div>
+        <img src={item.image} alt={item.name} className="w-full h-40 object-cover rounded-lg mt-4" />
+      </div>
 
-  <div className="flex gap-3">
-    <a
-      href={item.instagramUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="px-4 py-2 text-sm bg-white text-black font-semibold rounded-full
+      <div className="flex gap-3">
+        <a
+          href={item.instagramUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-4 py-2 text-sm bg-white text-black font-semibold rounded-full
                  hover:bg-[#FF6B01] hover:text-white transition"
-    >
-      Instagram
-    </a>
+        >
+          Instagram
+        </a>
 
-    <a
-      href={item.youtubeUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="px-4 py-2 text-sm border border-white/20 text-white
+        <a
+          href={item.youtubeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-4 py-2 text-sm border border-white/20 text-white
                  font-semibold rounded-full hover:bg-white/10 transition"
-    >
-      YouTube
-    </a>
-  </div>
-</div>
+        >
+          YouTube
+        </a>
+      </div>
+    </div>
 
   </div>
 );

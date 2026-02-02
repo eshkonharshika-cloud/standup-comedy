@@ -134,7 +134,7 @@ const HeroBentoSection: React.FC<HeroBentoSectionProps> = ({ hero }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="text-lg md:text-xl mb-10 text-white/80 font-medium"
+          className="text-lg md:text-xl mb-10 text-white/90 font-medium"
         >
           {hero.subtext}
         </motion.p>

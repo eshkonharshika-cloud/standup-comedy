@@ -45,10 +45,10 @@ export const JourneySection: React.FC<JourneySectionProps> = ({ journeys }) => {
             </span>
           </div>
 
-          <h2 className="text-5xl md:text-7xl font-black text-white italic tracking-tighter uppercase">
+          <h1 className="text-5xl md:text-7xl font-black text-white italic tracking-tighter uppercase">
             Start Your <br />
             <span style={{ color: COLORS.ORANGE }}>Journey</span>
-          </h2>
+          </h1>
         </div>
 
         <p className="text-white/50 max-w-sm text-lg leading-tight">

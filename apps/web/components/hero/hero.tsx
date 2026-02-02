@@ -7,11 +7,19 @@ interface HeroSectionProps {
   hero: Hero;
 }
 
+
 export function HeroSection({ hero }: HeroSectionProps) {
   const slides = hero.slides ?? [];
   const hasMultipleSlides = slides.length > 1;
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [showVideo, setShowVideo] = useState(false);
+
+  useEffect(() => {
+    const id = requestIdleCallback(() => setShowVideo(true));
+    return () => cancelIdleCallback(id);
+  }, []);
+
 
   useEffect(() => {
     if (!hero.autoplay || !hasMultipleSlides) return;
@@ -34,9 +42,8 @@ export function HeroSection({ hero }: HeroSectionProps) {
         {slides.map((slide, index) => (
           <iframe
             key={`${slide.videoUrl}-${index}`}
-            className={`absolute inset-0 h-full w-full transition-opacity duration-1000 ${
-              index === currentSlide ? "opacity-40" : "opacity-0"
-            }`}
+            className={`absolute inset-0 h-full w-full transition-opacity duration-1000 ${index === currentSlide ? "opacity-40" : "opacity-0"
+              }`}
             src={`https://www.youtube.com/embed/${slide.videoUrl}?autoplay=1&mute=1&controls=0&loop=1&playlist=${slide.videoUrl}&modestbranding=1&rel=0&playsinline=1`}
             allow="autoplay; fullscreen"
             allowFullScreen
@@ -51,11 +58,17 @@ export function HeroSection({ hero }: HeroSectionProps) {
       {/* 2. HERO CONTENT */}
       <main className="relative z-10 flex h-full flex-col justify-end px-12 pb-20">
         <div className="max-w-4xl">
-          <h1 className="mb-6 text-5xl font-black uppercase leading-[0.8] tracking-tighter text-white md:text-7xl">
-            Indian <br /> Stand-Up
-          </h1>
+          <h1 className="sr-only">Indian Stand-Up Comedy Platform</h1>
 
-          <p className="mb-4 max-w-xl text-xl text-white/80">
+          <h2
+            aria-hidden="true"
+            className="mb-6 text-5xl font-black uppercase leading-[0.8] tracking-tighter text-white md:text-7xl"
+          >
+            Indian <br /> Stand-Up
+          </h2>
+
+
+          <p className="mb-4 max-w-xl text-xl text-white/90">
             “{activeSlide.quote}”
           </p>
 
@@ -73,9 +86,8 @@ export function HeroSection({ hero }: HeroSectionProps) {
               {slides.map((_, i) => (
                 <div
                   key={i}
-                  className={`h-1 w-8 transition-all ${
-                    i === currentSlide ? "bg-[#FF6B01]" : "bg-white/30"
-                  }`}
+                  className={`h-1 w-8 transition-all ${i === currentSlide ? "bg-[#FF6B01]" : "bg-white/30"
+                    }`}
                 />
               ))}
             </div>

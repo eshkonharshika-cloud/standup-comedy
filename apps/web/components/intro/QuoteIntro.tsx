@@ -56,9 +56,9 @@ export function QuoteIntro({ quote, onFinish }: QuoteIntroProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0a0a0a] overflow-hidden">
-      
+
       {/* STAGE SPOTLIGHT */}
-      <div 
+      <div
         className="absolute inset-0 opacity-40 pointer-events-none"
         style={{
           background: `radial-gradient(circle at 50% 40%, ${COLORS.ORANGE}44 0%, transparent 60%)`
@@ -66,16 +66,16 @@ export function QuoteIntro({ quote, onFinish }: QuoteIntroProps) {
       />
 
       <div className="relative flex items-center justify-center w-full max-w-6xl h-[500px] sm:h-[400px] xs:h-[350px]">
-        
+
         {/* Background Glowing Halo */}
-        <motion.div 
+        <motion.div
           animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute w-72 h-72 sm:w-64 sm:h-64 xs:w-52 xs:h-52 bg-[#FF6B01] rounded-full z-0 blur-[100px]" 
+          className="absolute w-72 h-72 sm:w-64 sm:h-64 xs:w-52 xs:h-52 bg-[#FF6B01] rounded-full z-0 blur-[100px]"
         />
 
         {/* Realistic Retro Microphone */}
-        <motion.div 
+        <motion.div
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           className="relative z-10 flex flex-col items-center scale-110 sm:scale-100 xs:scale-90"
@@ -93,18 +93,18 @@ export function QuoteIntro({ quote, onFinish }: QuoteIntroProps) {
 
           {/* The Yoke */}
           <div className="relative w-24 h-12 -mt-10 flex justify-center sm:w-20 sm:h-10 xs:w-16 xs:h-8">
-             <div className="absolute top-0 w-22 h-14 sm:w-18 sm:h-12 xs:w-14 xs:h-10 border-x-8 border-b-8 border-gray-800 rounded-b-2xl" />
-             <div className="absolute top-4 left-0 w-3 h-3 sm:w-2 sm:h-2 xs:w-1.5 xs:h-1.5 bg-gray-600 rounded-full" />
-             <div className="absolute top-4 right-0 w-3 h-3 sm:w-2 sm:h-2 xs:w-1.5 xs:h-1.5 bg-gray-600 rounded-full" />
+            <div className="absolute top-0 w-22 h-14 sm:w-18 sm:h-12 xs:w-14 xs:h-10 border-x-8 border-b-8 border-gray-800 rounded-b-2xl" />
+            <div className="absolute top-4 left-0 w-3 h-3 sm:w-2 sm:h-2 xs:w-1.5 xs:h-1.5 bg-gray-600 rounded-full" />
+            <div className="absolute top-4 right-0 w-3 h-3 sm:w-2 sm:h-2 xs:w-1.5 xs:h-1.5 bg-gray-600 rounded-full" />
           </div>
 
           <div className="w-8 h-10 sm:w-6 sm:h-8 xs:w-5 xs:h-6 bg-gray-900 rounded-sm -mt-1 shadow-lg" />
         </motion.div>
 
         {/* Animated Cable Path */}
-        <svg 
-          className="absolute z-20 w-full h-[400px] sm:h-[350px] xs:h-[300px] pointer-events-none" 
-          viewBox="0 0 1000 400" 
+        <svg
+          className="absolute z-20 w-full h-[400px] sm:h-[350px] xs:h-[300px] pointer-events-none"
+          viewBox="0 0 1000 400"
           preserveAspectRatio="none"
           style={{ top: '55%', left: '50%', transform: 'translateX(-50%)' }}
         >
@@ -121,9 +121,8 @@ export function QuoteIntro({ quote, onFinish }: QuoteIntroProps) {
 
         {/* Quote Card */}
         <div
-          className={`absolute left-[50%] top-[45%] ml-24 sm:ml-12 xs:ml-4 transition-all duration-1000 ease-out transform ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+          className={`absolute left-[50%] top-[45%] ml-24 sm:ml-12 xs:ml-4 transition-all duration-1000 ease-out transform ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            }`}
         >
           <div className="bg-[#111111] p-6 sm:p-4 xs:p-3 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 border-l-[12px] border-l-[#FF6B01] max-w-lg min-w-[280px] sm:min-w-[220px] xs:min-w-[200px]">
             <p className="text-xl sm:text-lg xs:text-base font-black text-white leading-tight uppercase italic tracking-tight">

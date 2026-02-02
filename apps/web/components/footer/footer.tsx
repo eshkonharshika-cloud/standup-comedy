@@ -16,13 +16,13 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="relative w-full overflow-hidden pt-24 pb-12 px-6 border-t border-white/5" style={{ backgroundColor: COLORS.BG }}>
-      
+
       {/* PERSPECTIVE GRID LINE (Matches Hero Section) */}
       <div className="absolute top-0 left-0 w-full h-[1px] opacity-20" style={{ backgroundColor: COLORS.ORANGE }} />
 
       <div className="max-w-7xl mx-auto z-10 relative">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16 items-start">
-          
+
           {/* COLUMN 1: NAVIGATION & EXPLORATION */}
           <div className="space-y-8">
             <div>
@@ -30,8 +30,8 @@ const Footer: React.FC = () => {
               <ul className="grid grid-cols-2 gap-y-4 gap-x-8 text-sm font-medium">
                 {["Timeline", "Specials", "Live Tours", "Top Comedians", "Search", "The Vault"].map((item) => (
                   <li key={item}>
-                    <motion.a 
-                      href="#" 
+                    <motion.a
+                      href="#"
                       whileHover={{ x: 5, color: COLORS.ORANGE }}
                       className="text-white/40 transition-colors flex items-center gap-1"
                     >
@@ -73,7 +73,7 @@ const Footer: React.FC = () => {
             <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Genres</h4>
             <div className="flex flex-wrap gap-2">
               {["Observational", "Satire", "Anecdotal", "Dark Humor", "Crowd Work", "Roast", "Sketch"].map((genre) => (
-                <span 
+                <span
                   key={genre}
                   className="px-3 py-1 rounded-full border border-white/10 text-[10px] uppercase font-bold text-white/40 hover:border-[#FF6B01] hover:text-[#FF6B01] transition-all cursor-pointer"
                 >
@@ -95,7 +95,7 @@ const Footer: React.FC = () => {
               <a href="#" className="hover:text-white">Contact</a>
             </div>
           </div>
-          
+
           <div className="text-[10px] font-black italic uppercase tracking-tighter text-white/20">
             Made for the <span style={{ color: COLORS.ORANGE }}>Laughs</span>
           </div>
@@ -103,7 +103,7 @@ const Footer: React.FC = () => {
       </div>
 
       {/* AMBIENT GLOW (Fades toward the page center) */}
-      <div 
+      <div
         className="absolute bottom-[-50px] left-1/2 -translate-x-1/2 w-3/4 h-24 blur-[100px] rounded-full opacity-20 pointer-events-none"
         style={{ backgroundColor: COLORS.ORANGE }}
       />

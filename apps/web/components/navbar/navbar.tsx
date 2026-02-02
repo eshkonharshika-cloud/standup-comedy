@@ -24,16 +24,14 @@ export function Navbar() {
   const linkStyle = (path: string) => {
     if (path.startsWith("/#")) {
       const anchor = path.slice(1);
-      return `block py-3 transition-colors hover:text-[#FF6B01] ${
-        pathname === "/" && hash === anchor
-          ? "text-[#FF6B01]"
-          : "text-white/90"
-      }`;
+      return `block py-3 transition-colors hover:text-[#FF6B01] ${pathname === "/" && hash === anchor
+        ? "text-[#FF6B01]"
+        : "text-white/90"
+        }`;
     }
 
-    return `block py-3 transition-colors hover:text-[#FF6B01] ${
-      pathname === path ? "text-[#FF6B01]" : "text-white/90"
-    }`;
+    return `block py-3 transition-colors hover:text-[#FF6B01] ${pathname === path ? "text-[#FF6B01]" : "text-white/90"
+      }`;
   };
 
   return (
@@ -50,7 +48,7 @@ export function Navbar() {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-10 text-xs font-bold uppercase tracking-[0.2em]">
           <Link href="/" className={linkStyle("/")}>Home</Link>
-          <Link href="/comedians" className={linkStyle("/comedians")}>Comedians</Link>
+          {/* <Link href="/comedians" className={linkStyle("/comedians")}>Comedians</Link> */}
           <Link href="/#history" className={linkStyle("/#history")}>History</Link>
           <Link href="/#herosection" className={linkStyle("/#herosection")}>Hero</Link>
           <Link href="/blog" className={linkStyle("/blog")}>Blog</Link>

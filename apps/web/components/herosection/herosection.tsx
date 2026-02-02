@@ -45,22 +45,22 @@ const HeroBentoSection: React.FC<HeroBentoSectionProps> = ({ hero }) => {
 
   return (
     <section className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-[#0a0a0a]">
-      
+
       {/* --- LAYER 1: VIRTUAL PERSPECTIVE GRID (The "Tunnel" Effect) --- */}
-      <motion.div 
+      <motion.div
         style={{ perspective: "1000px", y: bgY }}
         className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none"
       >
-        <motion.div 
+        <motion.div
           style={{ rotateX: perspectiveRotate }}
           className="relative w-[200vw] h-[200vh] opacity-20"
         >
           {/* Vertical Lines (Vanishing toward center) */}
           <div className="absolute inset-0 grid grid-cols-12 gap-0">
             {[...Array(13)].map((_, i) => (
-              <div 
-                key={`v-${i}`} 
-                className="h-full w-px" 
+              <div
+                key={`v-${i}`}
+                className="h-full w-px"
                 style={{ backgroundColor: COLORS.ORANGE, boxShadow: `0 0 15px ${COLORS.ORANGE}` }}
               />
             ))}
@@ -68,13 +68,13 @@ const HeroBentoSection: React.FC<HeroBentoSectionProps> = ({ hero }) => {
           {/* Horizontal Lines (Depth) */}
           <div className="absolute inset-0 flex flex-col justify-between">
             {[...Array(20)].map((_, i) => (
-              <div 
-                key={`h-${i}`} 
-                className="w-full h-px" 
-                style={{ 
-                  backgroundColor: COLORS.ORANGE, 
+              <div
+                key={`h-${i}`}
+                className="w-full h-px"
+                style={{
+                  backgroundColor: COLORS.ORANGE,
                   opacity: (i / 20), // Lines fade as they get "further"
-                  boxShadow: `0 0 10px ${COLORS.ORANGE}` 
+                  boxShadow: `0 0 10px ${COLORS.ORANGE}`
                 }}
               />
             ))}
@@ -135,7 +135,7 @@ const HeroBentoSection: React.FC<HeroBentoSectionProps> = ({ hero }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="text-lg md:text-xl mb-10 text-white/80 font-medium"
+          className="text-lg md:text-xl mb-10 text-white/90 font-medium"
         >
           {hero.subtext}
         </motion.p>
@@ -147,10 +147,10 @@ const HeroBentoSection: React.FC<HeroBentoSectionProps> = ({ hero }) => {
             whileTap={{ scale: 0.95 }}
             className="flex items-center gap-3 px-10 py-4 rounded-full font-bold text-xl bg-[#FF6B01] text-white transition-all shadow-xl"
             onClick={() => router.push("/search")}
-            >
+          >
             <Search size={24} />
             {hero.ctaSearch}
-            </motion.button>
+          </motion.button>
 
 
           <motion.button

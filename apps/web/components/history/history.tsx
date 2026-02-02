@@ -40,9 +40,9 @@ export default function HistoryTimeline({ entries }: HistoryTimelineProps) {
   if (!entries?.length) return null;
 
   return (
-    <Box 
-      id="history" 
-      className="w-full py-24 px-6" 
+    <Box
+      id="history"
+      className="w-full py-24 px-6"
       sx={{ backgroundColor: BG_DARK, position: 'relative', overflow: 'hidden' }}
     >
       {/* Background Ambient Glow */}
@@ -53,7 +53,7 @@ export default function HistoryTimeline({ entries }: HistoryTimelineProps) {
         align="center"
         fontWeight={900}
         mb={10}
-        sx={{ 
+        sx={{
           color: WHITE,
           textTransform: 'uppercase',
           fontStyle: 'italic',
@@ -84,7 +84,7 @@ export default function HistoryTimeline({ entries }: HistoryTimelineProps) {
                 <MotionTypography
                   variant="h5"
                   fontWeight={800}
-                  sx={{ 
+                  sx={{
                     color: ORANGE,
                     fontFamily: 'monospace', // Gives a technical/modern vibe
                     textShadow: `0 0 15px ${ORANGE}44`
@@ -101,9 +101,9 @@ export default function HistoryTimeline({ entries }: HistoryTimelineProps) {
               {/* CENTER SEPARATOR */}
               <TimelineSeparator>
                 <TimelineConnector sx={{ bgcolor: 'rgba(255, 255, 255, 0.1)' }} />
-                
+
                 <MotionDot
-                  sx={{ 
+                  sx={{
                     backgroundColor: ORANGE,
                     border: `2px solid ${WHITE}`,
                     boxShadow: `0 0 20px ${ORANGE}`
@@ -129,8 +129,8 @@ export default function HistoryTimeline({ entries }: HistoryTimelineProps) {
               {/* CONTENT CARD */}
               <TimelineContent sx={{ py: "24px", px: 4 }}>
                 <motion.div
-                   whileHover={{ x: fromLeft ? 10 : -10 }}
-                   transition={{ type: "spring", stiffness: 300 }}
+                  whileHover={{ x: fromLeft ? 10 : -10 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 >
                   <Typography
                     variant="h6"
@@ -144,10 +144,10 @@ export default function HistoryTimeline({ entries }: HistoryTimelineProps) {
                   <Typography
                     variant="body1"
                     mt={1}
-                    sx={{ 
-                      color: TEXT_MUTED, 
+                    sx={{
+                      color: TEXT_MUTED,
                       maxWidth: '400px',
-                      lineHeight: 1.6 
+                      lineHeight: 1.6
                     }}
                   >
                     {item.description}
