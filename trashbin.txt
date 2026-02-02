@@ -332,15 +332,15 @@ const SearchPage: React.FC = () => {
         
         {/* STATS STRIP: Made icons and text smaller (text-xs) */}
         <div className="flex flex-wrap gap-4 mt-4">
-          <div className="flex items-center gap-1.5 text-white/40 text-xs">
+          <div className="flex items-center gap-1.5 text-white/70 text-xs">
             <Eye size={14} color={COLORS.ORANGE} />
             <span>{result.view_count.toLocaleString()}</span>
           </div>
-          <div className="flex items-center gap-1.5 text-white/40 text-xs">
+          <div className="flex items-center gap-1.5 text-white/70 text-xs">
             <ThumbsUp size={14} color={COLORS.ORANGE} />
             <span>{result.like_count.toLocaleString()}</span>
           </div>
-          <div className="flex items-center gap-1.5 text-white/40 text-xs">
+          <div className="flex items-center gap-1.5 text-white/70 text-xs">
             <MessageSquare size={14} color={COLORS.ORANGE} />
             <span>{result.comment_count?.toLocaleString() || "0"}</span>
           </div>

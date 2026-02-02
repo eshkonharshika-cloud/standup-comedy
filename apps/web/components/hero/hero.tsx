@@ -58,14 +58,14 @@ export function HeroSection({ hero }: HeroSectionProps) {
       {/* 2. HERO CONTENT */}
       <main className="relative z-10 flex h-full flex-col justify-end px-12 pb-20">
         <div className="max-w-4xl">
-          <h1 className="sr-only">Indian Stand-Up Comedy Platform</h1>
+          <h1 className="sr-only">
+            Indian Stand-Up Comedy Platform – Comedians, Shows & Tours
+          </h1>
 
-          <h2
-            aria-hidden="true"
-            className="mb-6 text-5xl font-black uppercase leading-[0.8] tracking-tighter text-white md:text-7xl"
-          >
+          <h2 className="mb-6 text-5xl font-black uppercase leading-[0.8] tracking-tighter text-white md:text-7xl">
             Indian <br /> Stand-Up
           </h2>
+
 
 
           <p className="mb-4 max-w-xl text-xl text-white/90">
@@ -92,7 +92,7 @@ export function HeroSection({ hero }: HeroSectionProps) {
               ))}
             </div>
 
-            <span className="text-white/40">0{slides.length}</span>
+            <span className="text-white/70">0{slides.length}</span>
           </div>
         )}
       </main>

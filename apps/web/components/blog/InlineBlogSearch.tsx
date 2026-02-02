@@ -37,7 +37,7 @@ export default function InlineBlogSearch() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search blueprints by comedian, headline or category..."
-          className="w-full px-6 py-3 rounded-2xl bg-[#0f0f0f] border border-white/5 text-white placeholder:text-white/40"
+          className="w-full px-6 py-3 rounded-2xl bg-[#0f0f0f] border border-white/5 text-white placeholder:text-white/70"
         />
       </div>
 

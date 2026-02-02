@@ -6,7 +6,6 @@ import { Search, ChevronDown } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type { HeroSection as HeroSectionType } from "@standup/contracts/herosection";
 
-
 interface HeroBentoSectionProps {
   hero: HeroSectionType;
 }
@@ -15,8 +14,6 @@ const HeroBentoSection: React.FC<HeroBentoSectionProps> = ({ hero }) => {
   const { scrollY } = useScroll();
   const router = useRouter();
 
-
-  // Parallax and Perspective shifts based on scroll
   const bgY = useTransform(scrollY, [0, 500], [0, -100]);
   const perspectiveRotate = useTransform(scrollY, [0, 500], [60, 75]);
 
@@ -26,7 +23,16 @@ const HeroBentoSection: React.FC<HeroBentoSectionProps> = ({ hero }) => {
     DARK: "#353535",
   };
 
-  const [orbs, setOrbs] = useState<Array<{ width: number; height: number; left: string; top: string; duration: number; delay: number }>>([]);
+  const [orbs, setOrbs] = useState<
+    Array<{
+      width: number;
+      height: number;
+      left: string;
+      top: string;
+      duration: number;
+      delay: number;
+    }>
+  >([]);
 
   useEffect(() => {
     const generated = Array.from({ length: 15 }).map(() => ({
@@ -45,8 +51,12 @@ const HeroBentoSection: React.FC<HeroBentoSectionProps> = ({ hero }) => {
 
   return (
     <section className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-[#0a0a0a]">
+      {/* ✅ SEO H1 (hidden visually, readable by Google) */}
+      <h1 className="sr-only">
+        {hero.headlineTop} {hero.headlineAccent}
+      </h1>
 
-      {/* --- LAYER 1: VIRTUAL PERSPECTIVE GRID (The "Tunnel" Effect) --- */}
+      {/* --- LAYER 1: PERSPECTIVE GRID --- */}
       <motion.div
         style={{ perspective: "1000px", y: bgY }}
         className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none"
@@ -55,26 +65,28 @@ const HeroBentoSection: React.FC<HeroBentoSectionProps> = ({ hero }) => {
           style={{ rotateX: perspectiveRotate }}
           className="relative w-[200vw] h-[200vh] opacity-20"
         >
-          {/* Vertical Lines (Vanishing toward center) */}
-          <div className="absolute inset-0 grid grid-cols-12 gap-0">
+          <div className="absolute inset-0 grid grid-cols-12">
             {[...Array(13)].map((_, i) => (
               <div
-                key={`v-${i}`}
+                key={i}
                 className="h-full w-px"
-                style={{ backgroundColor: COLORS.ORANGE, boxShadow: `0 0 15px ${COLORS.ORANGE}` }}
+                style={{
+                  backgroundColor: COLORS.ORANGE,
+                  boxShadow: `0 0 15px ${COLORS.ORANGE}`,
+                }}
               />
             ))}
           </div>
-          {/* Horizontal Lines (Depth) */}
+
           <div className="absolute inset-0 flex flex-col justify-between">
             {[...Array(20)].map((_, i) => (
               <div
-                key={`h-${i}`}
+                key={i}
                 className="w-full h-px"
                 style={{
                   backgroundColor: COLORS.ORANGE,
-                  opacity: (i / 20), // Lines fade as they get "further"
-                  boxShadow: `0 0 10px ${COLORS.ORANGE}`
+                  opacity: i / 20,
+                  boxShadow: `0 0 10px ${COLORS.ORANGE}`,
                 }}
               />
             ))}
@@ -82,11 +94,11 @@ const HeroBentoSection: React.FC<HeroBentoSectionProps> = ({ hero }) => {
         </motion.div>
       </motion.div>
 
-      {/* --- LAYER 2: FLOATING DUST/ORBS (Bento Particles) --- */}
+      {/* --- LAYER 2: FLOATING ORBS --- */}
       <div className="absolute inset-0 z-0">
         {orbs.map((orb, i) => (
           <motion.div
-            key={`orb-${i}`}
+            key={i}
             className="absolute rounded-full"
             style={{
               backgroundColor: COLORS.ORANGE,
@@ -112,23 +124,25 @@ const HeroBentoSection: React.FC<HeroBentoSectionProps> = ({ hero }) => {
 
       {/* --- MAIN CONTENT --- */}
       <div className="relative z-10 text-center px-4 max-w-5xl">
+        {/* 🎨 Visual headline (not an H1) */}
         <motion.div
+          aria-hidden="true"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1 }}
+          className="text-6xl md:text-8xl font-black italic tracking-tighter leading-tight mb-4 uppercase text-white"
         >
-          <h1 className="text-6xl md:text-8xl font-black italic tracking-tighter leading-tight mb-4 uppercase text-white">
-            {hero.headlineTop} <br />
-            <span
-              style={{
-                color: "transparent",
-                WebkitTextStroke: `2px ${COLORS.ORANGE}`,
-                textShadow: `0 0 40px ${COLORS.ORANGE}66`,
-              }}
-            >
-              {hero.headlineAccent}
-            </span>
-          </h1>
+          {hero.headlineTop}
+          <br />
+          <span
+            style={{
+              color: "transparent",
+              WebkitTextStroke: `2px ${COLORS.ORANGE}`,
+              textShadow: `0 0 40px ${COLORS.ORANGE}66`,
+            }}
+          >
+            {hero.headlineAccent}
+          </span>
         </motion.div>
 
         <motion.p
@@ -140,23 +154,24 @@ const HeroBentoSection: React.FC<HeroBentoSectionProps> = ({ hero }) => {
           {hero.subtext}
         </motion.p>
 
-        {/* --- ACTIONS --- */}
         <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
           <motion.button
-            whileHover={{ scale: 1.05, boxShadow: `0 0 30px ${COLORS.ORANGE}88` }}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: `0 0 30px ${COLORS.ORANGE}88`,
+            }}
             whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-3 px-10 py-4 rounded-full font-bold text-xl bg-[#FF6B01] text-white transition-all shadow-xl"
+            className="flex items-center gap-3 px-10 py-4 rounded-full font-bold text-xl bg-[#FF6B01] text-white shadow-xl"
             onClick={() => router.push("/search")}
           >
             <Search size={24} />
             {hero.ctaSearch}
           </motion.button>
 
-
           <motion.button
             whileHover={{ backgroundColor: `${COLORS.ORANGE}22` }}
             onClick={() => router.push("/blog")}
-            className="flex items-center gap-3 px-10 py-4 rounded-full font-bold text-lg border-2 border-[#FF6B01] text-[#FF6B01] transition-all bg-transparent"
+            className="flex items-center gap-3 px-10 py-4 rounded-full font-bold text-lg border-2 border-[#FF6B01] text-[#FF6B01]"
           >
             {hero.ctaScroll}
             <ChevronDown className="animate-bounce" size={24} />
@@ -164,10 +179,6 @@ const HeroBentoSection: React.FC<HeroBentoSectionProps> = ({ hero }) => {
         </div>
       </div>
 
-      {/* render inline blog search inside the hero when toggled */}
-
-
-      {/* VIGNETTE GRADIENT (Focus center) */}
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,#0a0a0a_80%)]" />
     </section>
   );

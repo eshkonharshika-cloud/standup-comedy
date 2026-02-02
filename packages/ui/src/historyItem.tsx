@@ -10,7 +10,7 @@ export const HistoryItem: React.FC<HistoryItemProps> = ({ title, year, descripti
   return (
     <div className="bg-black/60 p-4 rounded-md shadow-sm">
       <div className="flex items-center justify-between">
-        <h4 className="font-semibold">{title}</h4>
+        <h1 className="font-semibold">{title}</h1>
         {year && <span className="text-white/60">{year}</span>}
       </div>
       {description && <p className="text-white/70 mt-2">{description}</p>}

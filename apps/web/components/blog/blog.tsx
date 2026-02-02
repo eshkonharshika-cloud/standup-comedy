@@ -87,7 +87,7 @@ export const JourneySection: React.FC<JourneySectionProps> = ({ journeys }) => {
                 {item.title}
               </h3>
 
-              <p className="text-white/40 text-sm mb-4">
+              <p className="text-white/70 text-sm mb-4">
                 With{" "}
                 <span className="text-white font-bold italic underline decoration-[#FF6B01]">
                   {item.mentor}

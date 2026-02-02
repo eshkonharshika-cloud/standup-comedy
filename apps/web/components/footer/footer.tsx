@@ -26,14 +26,17 @@ const Footer: React.FC = () => {
           {/* COLUMN 1: NAVIGATION & EXPLORATION */}
           <div className="space-y-8">
             <div>
-              <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Explore</h4>
+              <p className="text-white font-bold mb-6 uppercase tracking-widest text-xs opacity-50">
+                Explore
+              </p>
+
               <ul className="grid grid-cols-2 gap-y-4 gap-x-8 text-sm font-medium">
                 {["Timeline", "Specials", "Live Tours", "Top Comedians", "Search", "The Vault"].map((item) => (
                   <li key={item}>
                     <motion.a
-                      href="#"
+                      href="#" aria-label="item"
                       whileHover={{ x: 5, color: COLORS.ORANGE }}
-                      className="text-white/40 transition-colors flex items-center gap-1"
+                      className="text-white/70 transition-colors flex items-center gap-1"
                     >
                       {item}
                     </motion.a>
@@ -58,9 +61,9 @@ const Footer: React.FC = () => {
               {[Instagram, Youtube, Twitter, Mail].map((Icon, i) => (
                 <motion.a
                   key={i}
-                  href="#"
+                  href="#" aria-label="name"
                   whileHover={{ scale: 1.2, color: COLORS.ORANGE }}
-                  className="text-white/40 transition-all"
+                  className="text-white/70 transition-all"
                 >
                   <Icon size={22} />
                 </motion.a>
@@ -70,12 +73,12 @@ const Footer: React.FC = () => {
 
           {/* COLUMN 3: GENRES & COLLECTIONS */}
           <div className="md:pl-12">
-            <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Genres</h4>
+            <h2 className="text-white font-bold mb-6 uppercase tracking-widest text-xs opacity-50">Genres</h2>
             <div className="flex flex-wrap gap-2">
               {["Observational", "Satire", "Anecdotal", "Dark Humor", "Crowd Work", "Roast", "Sketch"].map((genre) => (
                 <span
                   key={genre}
-                  className="px-3 py-1 rounded-full border border-white/10 text-[10px] uppercase font-bold text-white/40 hover:border-[#FF6B01] hover:text-[#FF6B01] transition-all cursor-pointer"
+                  className="px-3 py-1 rounded-full border border-white/10 text-[10px] uppercase font-bold text-white/70 hover:border-[#FF6B01] hover:text-[#FF6B01] transition-all cursor-pointer"
                 >
                   {genre}
                 </span>
@@ -87,16 +90,16 @@ const Footer: React.FC = () => {
 
         {/* BOTTOM LEGAL BAR */}
         <div className="mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex flex-col md:flex-row items-center gap-4 text-[10px] uppercase tracking-[0.2em] font-bold text-white/20">
+          <div className="flex flex-col md:flex-row items-center gap-4 text-[10px] uppercase tracking-[0.2em] font-bold text-white/60">
             <p>© {currentYear} StandupHub India.</p>
             <div className="flex gap-6">
-              <a href="#" className="hover:text-white">Privacy</a>
-              <a href="#" className="hover:text-white">Terms</a>
-              <a href="#" className="hover:text-white">Contact</a>
+              <a href="#" aria-label="Privacy" className="hover:text-white">Privacy</a>
+              <a href="#" aria-label="Terms" className="hover:text-white">Terms</a>
+              <a href="#" aria-label="Contact" className="hover:text-white">Contact</a>
             </div>
           </div>
 
-          <div className="text-[10px] font-black italic uppercase tracking-tighter text-white/20">
+          <div className="text-[10px] font-black italic uppercase tracking-tighter text-white/60">
             Made for the <span style={{ color: COLORS.ORANGE }}>Laughs</span>
           </div>
         </div>
