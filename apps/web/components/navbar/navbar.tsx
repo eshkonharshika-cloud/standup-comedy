@@ -41,7 +41,7 @@ export function Navbar() {
         <Link href="/" className={linkStyle("/")}>
           Home
         </Link>
-        <Link href="/#comedians" className={linkStyle("/#comedians")}>
+        <Link href="/#comics" className={linkStyle("/#comics")}>
           Comedians
         </Link>
         <Link href="/#history" className={linkStyle("/#history")}>
