@@ -7,63 +7,95 @@ interface HeroSectionProps {
   hero: Hero;
 }
 
+
 export function HeroSection({ hero }: HeroSectionProps) {
   const slides = hero.slides ?? [];
+  const hasMultipleSlides = slides.length > 1;
+
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [canLoadVideo, setCanLoadVideo] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
 
   useEffect(() => {
-    const id = requestIdleCallback(() => setCanLoadVideo(true));
+    const id = requestIdleCallback(() => setShowVideo(true));
     return () => cancelIdleCallback(id);
   }, []);
 
+
   useEffect(() => {
-    if (!hero.autoplay || slides.length <= 1) return;
+    if (!hero.autoplay || !hasMultipleSlides) return;
 
-    const id = setInterval(
-      () => setCurrentSlide((i) => (i + 1) % slides.length),
-      hero.slideDuration
-    );
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, hero.slideDuration);
 
-    return () => clearInterval(id);
-  }, [hero.autoplay, hero.slideDuration, slides.length]);
+    return () => clearInterval(interval);
+  }, [hero.autoplay, hero.slideDuration, hasMultipleSlides, slides.length]);
 
-  if (!slides.length) return null;
+  if (slides.length === 0) return null;
 
-  const slide = slides[currentSlide];
+  const activeSlide = slides[currentSlide];
 
   return (
-    <section className="relative h-screen overflow-hidden">
-      {/* VIDEO */}
-      {canLoadVideo && (
-        <iframe
-          className="absolute inset-0 w-full h-full opacity-40"
-          loading="lazy"
-          src={`https://www.youtube.com/embed/${slide.videoUrl}?autoplay=1&mute=1&controls=0&loop=1&playlist=${slide.videoUrl}`}
-          allow="autoplay; fullscreen"
-          title="hero-video"
-        />
-      )}
+    <div id="herosection" className="relative h-screen w-full overflow-hidden">
+      {/* 1. VIDEO BACKGROUND (YOUTUBE IFRAME) */}
+      <div className="absolute inset-0 z-0">
+        {slides.map((slide, index) => (
+          <iframe
+            key={`${slide.videoUrl}-${index}`}
+            className={`absolute inset-0 h-full w-full transition-opacity duration-1000 ${index === currentSlide ? "opacity-40" : "opacity-0"
+              }`}
+            src={`https://www.youtube.com/embed/${slide.videoUrl}?autoplay=1&mute=1&controls=0&loop=1&playlist=${slide.videoUrl}&modestbranding=1&rel=0&playsinline=1`}
+            allow="autoplay; fullscreen"
+            allowFullScreen
+            title={`hero-video-${index}`}
+          />
+        ))}
 
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/90" />
+        {/* overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80" />
+      </div>
 
-      <main className="relative z-10 h-full flex flex-col justify-end px-12 pb-20">
-        <h1 className="sr-only">
-          Indian Stand-Up Comedy Platform – Comedians, Shows & Tours
-        </h1>
+      {/* 2. HERO CONTENT */}
+      <main className="relative z-10 flex h-full flex-col justify-end px-12 pb-20">
+        <div className="max-w-4xl">
+          <h1 className="sr-only">
+            Indian Stand-Up Comedy Platform – Comedians, Shows & Tours
+          </h1>
 
-        <h2 className="text-5xl md:text-7xl font-black uppercase text-white mb-6">
-          Indian <br /> Stand-Up
-        </h2>
+          <h2 className="mb-6 text-5xl font-black uppercase leading-[0.8] tracking-tighter text-white md:text-7xl">
+            Indian <br /> Stand-Up
+          </h2>
 
-        <p className="text-xl text-white/90 mb-4">
-          “{slide.quote}”
-        </p>
 
-        <p className="border-l-4 pl-4 text-sm uppercase tracking-widest text-[#FF6B01]">
-          {slide.comedianId} · {slide.year}
-        </p>
+
+          <p className="mb-4 max-w-xl text-xl text-white/90">
+            “{activeSlide.quote}”
+          </p>
+
+          <p className="border-l-4 pl-4 text-sm font-bold uppercase tracking-[0.3em] text-[#FF6B01]">
+            {activeSlide.comedianId} · {activeSlide.year}
+          </p>
+        </div>
+
+        {/* 3. INDICATORS */}
+        {hasMultipleSlides && (
+          <div className="absolute bottom-10 right-12 flex items-center gap-4 font-bold text-white">
+            <span className="text-2xl">0{currentSlide + 1}</span>
+
+            <div className="flex gap-2">
+              {slides.map((_, i) => (
+                <div
+                  key={i}
+                  className={`h-1 w-8 transition-all ${i === currentSlide ? "bg-[#FF6B01]" : "bg-white/30"
+                    }`}
+                />
+              ))}
+            </div>
+
+            <span className="text-white/70">0{slides.length}</span>
+          </div>
+        )}
       </main>
-    </section>
+    </div>
   );
 }
