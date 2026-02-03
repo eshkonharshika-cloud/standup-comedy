@@ -27,7 +27,7 @@ export default async function EditorPage() {
 
     return (
         <div className="min-h-screen bg-[#020617] text-white">
-            <BentoEditor initialData={bento} availableEntries={availableEntries} />
+            <BentoEditor initialData={bento} />
         </div>
     );
 }
