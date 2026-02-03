@@ -1,1 +1,1 @@
-export { getBentoSection } from "../contentful/queries";
+export { getBentoSection, getComedyBlueprints, getAllComics } from "../contentful/queries";
