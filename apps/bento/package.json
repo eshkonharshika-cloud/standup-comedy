@@ -11,7 +11,9 @@
   "dependencies": {
     "next": "16.1.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "@standup/cms": "workspace:^1.0.0",
+    "@standup/contracts": "workspace:^0.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
