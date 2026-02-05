@@ -46,7 +46,7 @@ export function CapabilityCard({ item }: CapabilityCardProps) {
 
                 {item.cta && (
                     <Link
-                        href={item.cta.href}
+                        href={item.cta.href.replace(/\s+/g, '%20')}
                         className="inline-flex items-center gap-2 text-sm font-semibold text-[#5B4BFF]"
                     >
                         {item.cta.label}

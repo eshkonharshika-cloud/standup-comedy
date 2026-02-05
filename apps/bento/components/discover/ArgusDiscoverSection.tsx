@@ -104,8 +104,8 @@ export default function ArgusDiscoverSection({
                   setActiveIndex(null)
                 }
                 className={`group relative h-[420px] overflow-hidden rounded-3xl transition-all duration-700 ease-in-out ${colSpan} ${isDimmed
-                    ? "opacity-40 scale-[0.98]"
-                    : "opacity-100 scale-100"
+                  ? "opacity-40 scale-[0.98]"
+                  : "opacity-100 scale-100"
                   }`}
               >
                 {/* Media */}
@@ -120,8 +120,8 @@ export default function ArgusDiscoverSection({
                 <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-[#00051a] via-[#00051a]/30 to-transparent p-8">
                   <h2
                     className={`text-3xl font-bold text-white transition-transform duration-500 ${isActive
-                        ? "-translate-y-2"
-                        : "translate-y-0"
+                      ? "-translate-y-2"
+                      : "translate-y-0"
                       }`}
                   >
                     {card.title}
@@ -130,8 +130,8 @@ export default function ArgusDiscoverSection({
                   {card.subtitle && (
                     <div
                       className={`overflow-hidden transition-all duration-500 ${isActive
-                          ? "max-h-24 opacity-100 mt-3"
-                          : "max-h-0 opacity-0"
+                        ? "max-h-24 opacity-100 mt-3"
+                        : "max-h-0 opacity-0"
                         }`}
                     >
                       <p className="text-lg text-neutral-300">
@@ -142,7 +142,7 @@ export default function ArgusDiscoverSection({
 
                   {card.linkLabel && card.linkUrl && (
                     <a
-                      href={card.linkUrl}
+                      href={card.linkUrl.replace(/\s+/g, '%20')}
                       className="mt-4 inline-flex items-center gap-2 text-green-400 font-semibold"
                     >
                       {card.linkLabel}
@@ -154,8 +154,8 @@ export default function ArgusDiscoverSection({
                 {/* Glow */}
                 <div
                   className={`pointer-events-none absolute inset-0 rounded-3xl border border-white/10 transition-opacity duration-500 ${isActive
-                      ? "opacity-100"
-                      : "opacity-0"
+                    ? "opacity-100"
+                    : "opacity-0"
                     }`}
                 />
               </div>

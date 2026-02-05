@@ -63,7 +63,7 @@ export default function ProductReleasesSection({ data }: Props) {
                                     </p>
 
                                     <Link
-                                        href={release.href}
+                                        href={release.href?.replace(/\s+/g, '%20') || "#"}
                                         className="mt-2 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-gray-900 hover:text-blue-600 transition-colors"
                                     >
                                         View release

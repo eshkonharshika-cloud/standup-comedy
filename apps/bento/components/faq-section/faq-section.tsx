@@ -33,8 +33,8 @@ export function FaqStatsSection({ data }: Props) {
 
               <p
                 className={`text-sm leading-relaxed ${index === data.stats.length - 1
-                    ? "text-white/90"
-                    : "text-gray-600"
+                  ? "text-white/90"
+                  : "text-gray-600"
                   }`}
               >
                 {stat.label}
@@ -77,14 +77,15 @@ export function FaqStatsSection({ data }: Props) {
                     )}
                   </button>
 
-                  {isOpen && (
-                    <p
-                      id={`faq-answer-${index}`}
-                      className="mt-4 text-gray-600 leading-relaxed"
-                    >
+                  <div
+                    id={`faq-answer-${index}`}
+                    className={`mt-4 overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                      }`}
+                  >
+                    <p className="text-gray-600 leading-relaxed pb-4">
                       {faq.answer}
                     </p>
-                  )}
+                  </div>
                 </div>
               );
             })}
