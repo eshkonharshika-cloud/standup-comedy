@@ -1,7 +1,7 @@
 import {
   BentoSection,
   BentoSectionContract,
-} from "@standup/contracts/bento";
+} from "@standup/contracts/argus/bento";
 
 export function mapBentoSectionEntry(entry: any): BentoSection {
   const cards =

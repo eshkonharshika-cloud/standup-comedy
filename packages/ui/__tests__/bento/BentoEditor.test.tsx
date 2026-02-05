@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import BentoEditor from "../../../../apps/bento/components/editor/BentoEditor";
-import { BentoSection } from "@standup/contracts/bento";
+import { BentoSection } from "@standup/contracts/argus/bento";
 
 // Mock next/navigation
 vi.mock("next/navigation", () => ({

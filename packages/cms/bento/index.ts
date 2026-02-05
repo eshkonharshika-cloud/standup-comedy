@@ -1,1 +1,1 @@
-export { getBentoSection, getComedyBlueprints, getAllComics } from "../contentful/queries";
+export { getBentoSection, getArgusHeroSection, getFeatureVideoSection, getArgusDiscoverSection, getTestimonial, getFaqSectionAggregate, getCapabilitySection, getProductReleaseSection } from "../contentful/queries";

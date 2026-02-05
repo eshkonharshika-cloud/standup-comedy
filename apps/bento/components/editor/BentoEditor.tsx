@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { BentoSection as BentoSectionType, BentoCard } from "@standup/contracts/bento";
+import { BentoSection as BentoSectionType, BentoCard } from "@standup/contracts/argus/bento";
 
 interface BentoEditorProps {
     initialData: BentoSectionType;

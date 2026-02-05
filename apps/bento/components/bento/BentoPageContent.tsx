@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { BentoSection as BentoSectionType } from "@standup/contracts/bento";
+import type { BentoSection as BentoSectionType } from "@standup/contracts/argus/bento";
 import BentoSection from "@/components/bento/bento";
 
 interface Props {

@@ -1,33 +1,52 @@
 
-import { getBentoSection, getComedyBlueprints, getAllComics } from "@standup/cms/bento";
-import BentoEditor from "@/components/editor/BentoEditor";
+import {
+    getBentoSection,
+    getArgusHeroSection,
+    getFaqSectionAggregate,
+    getTestimonial,
+    getCapabilitySection,
+    getProductReleaseSection,
+    getFeatureVideoSection,
+    getArgusDiscoverSection
+} from "@standup/cms/bento";
+import UniversalEditor from "@/components/editor/UniversalEditor";
 
 export default async function EditorPage() {
-    const bento = await getBentoSection();
-    const blueprints = await getComedyBlueprints();
-    const comics = await getAllComics();
+    // Fetch all sections in parallel
+    const [
+        bento,
+        hero,
+        faq,
+        testimonial,
+        capabilities,
+        productReleases,
+        featureVideo,
+        discover
+    ] = await Promise.all([
+        getBentoSection(),
+        getArgusHeroSection(),
+        getFaqSectionAggregate(),
+        getTestimonial(),
+        getCapabilitySection(),
+        getProductReleaseSection(),
+        getFeatureVideoSection(),
+        getArgusDiscoverSection()
+    ]);
 
-    // Combine entries for mapping
-    const availableEntries = [
-        ...blueprints.map(b => ({
-            id: b.id,
-            title: b.headline,
-            label: "Blueprint",
-            description: b.teaserText,
-            imageUrl: b.featuredImage?.url
-        })),
-        ...comics.map(c => ({
-            id: c.id,
-            title: c.name,
-            label: "Comic",
-            description: c.iconicLine,
-            imageUrl: c.image // Comic image is a string URL
-        }))
-    ];
+    const allData = {
+        bento,
+        hero,
+        faq,
+        testimonial,
+        capabilities,
+        productReleases,
+        featureVideo,
+        discover
+    };
 
     return (
-        <div className="min-h-screen bg-[#020617] text-white">
-            <BentoEditor initialData={bento} />
+        <div className="min-h-screen bg-[#f8fafc]">
+            <UniversalEditor initialAllData={allData} />
         </div>
     );
 }

@@ -5,7 +5,283 @@ import { mapHistoryEntry } from "../mappers/history.mapper";
 import { mapComicEntry } from "../mappers/comic.mapper";
 import { mapHeroSection } from "../mappers/herosection.mapper"; // <-- new import for JSON-driven hero
 import { mapComedyBlueprintEntry } from "../mappers/blog.mapper";
-import { mapBentoSectionEntry } from "../mappers/bento.mapper";
+import { mapBentoSectionEntry } from "../mappers/argus/bento.mapper";
+import { mapHeroSectionEntry } from "../mappers/argus/hero.mapper";
+import { mapFeatureHighlightSectionEntry } from "../mappers/argus/featureHighlight.mapper";
+import { mapArgusDiscoverSectionEntry } from "../mappers/argus/mapArgusDiscoverSection.mapper";
+import { mapTestimonialEntry } from "../mappers/argus/testimonial.mapper";
+import { mapFaqSectionAggregate } from "../mappers/argus/faq-section.aggregate.mapper";
+import { mapCapabilitySection } from "../mappers/argus/capability-section.mapper";
+import { mapProductReleaseSection } from "../mappers/argus/product-release-section.mapper";
+
+export async function getProductReleaseSection() {
+  const QUERY = `
+    query GetProductReleaseSection {
+      productReleaseSectionCollection(limit: 1) {
+        items {
+          eyebrow
+          title
+          ctaLabel
+          ctaLink
+
+          releasesCollection {
+            items {
+              sys {
+                id
+              }
+
+              ... on ProductRelease {
+                title
+                versions
+                releaseDate
+                link
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const data = await graphql<any>(QUERY);
+  const section = data.productReleaseSectionCollection?.items?.[0];
+
+  if (!section) {
+    throw new Error("Product Release section not found");
+  }
+
+  return mapProductReleaseSection(section);
+}
+
+
+
+export async function getCapabilitySection() {
+  const QUERY = `
+    query GetCapabilitySection {
+      capabilitySectionCollection(limit: 1) {
+  items {
+    title
+    highlightBlock {
+      title
+      description
+      ctaLabel
+      ctaLink
+    }
+    capabilitiesCollection {
+      items {
+        sys { id }
+        title
+        description
+        linkLabel
+        linkUrl
+      }
+    }
+  }
+}
+
+
+    }
+  `;
+
+  const data = await graphql<any>(QUERY);
+
+  const capabilitySection =
+    data?.capabilitySectionCollection?.items?.[0];
+
+  if (!capabilitySection) {
+    throw new Error("Capability section not found");
+  }
+
+  return mapCapabilitySection(capabilitySection);
+}
+
+
+export async function getFaqSectionAggregate() {
+ const QUERY = `
+  query GetFaqSectionAggregate {
+  faqsectionCollection(limit: 1) {
+    items {
+      title
+      faqCollection {
+        items {
+          sys { id }
+          question
+          answer
+        }
+      }
+    }
+  }
+
+  statsCollection {
+    items {
+      sys { id }
+      value
+      label
+    }
+  }
+}
+
+`;
+
+  const data = await graphql<any>(QUERY);
+
+  const faqSection = data.faqsectionCollection?.items?.[0];
+
+  if (!faqSection) {
+    throw new Error("FAQ section not found");
+  }
+
+  return mapFaqSectionAggregate(
+    faqSection,
+    data.statsCollection?.items
+  );
+}
+
+
+export async function getTestimonial() {
+  const QUERY = `
+    query GetTestimonial($limit: Int) {
+      testimonialCollection(limit: $limit) {
+        items {
+          sys { id }
+          quote
+          authorName
+          authorRole
+          authorCompany
+          ctaLabel
+          ctaLink
+          authorAvatar {
+            url
+            contentType
+            width
+            height
+          }
+        }
+      }
+    }
+  `;
+
+  const data = await graphql<{
+    testimonialCollection?: { items: any[] };
+  }>(QUERY, { limit: 1 });
+
+  const item = data.testimonialCollection?.items?.[0];
+
+  if (!item) {
+    throw new Error("No testimonial found");
+  }
+
+  return mapTestimonialEntry(item);
+}
+
+
+export async function getArgusDiscoverSection() {
+  const QUERY = `
+  query GetArgusDiscoverSection($limit: Int) {
+    argusDiscoverSectionCollection(limit: $limit) {
+      items {
+        sys { id }
+        eyebrow
+        title
+        description
+
+        valuePropsCollection {
+          items {
+            sys { id }
+
+            ... on ArgusValuePropCard {
+              title
+              subtitle
+              linkLabel
+              linkUrl
+
+              media {
+                url
+                contentType
+                width
+                height
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+
+  const data = await graphql<{
+    argusDiscoverSectionCollection?: { items: any[] };
+  }>(QUERY, { limit: 1 });
+
+  const item =
+    data.argusDiscoverSectionCollection?.items?.[0];
+
+  if (!item) {
+    throw new Error("No Argus Discover section found");
+  }
+
+  return mapArgusDiscoverSectionEntry(item);
+}
+
+
+export async function getFeatureVideoSection() {
+  const QUERY = `
+    query GetFeatureVideoSection($limit: Int) {
+      featureVideoSectionCollection(limit: $limit) {
+        items {
+          sys { id }
+          eyebrow
+          title
+          description
+          interactionHint
+        }
+      }
+    }
+  `;
+
+  const data = await graphql<{
+    featureVideoSectionCollection?: { items: any[] };
+  }>(QUERY, { limit: 1 });
+
+  const item =
+    data.featureVideoSectionCollection?.items?.[0];
+
+  if (!item) {
+    throw new Error("No Feature Video section found");
+  }
+
+  return mapFeatureHighlightSectionEntry(item);
+}
+
+export async function getArgusHeroSection() {
+  const QUERY = `
+    query GetArgusHeroSection($limit: Int) {
+      argusheroCollection(limit: $limit) {
+        items {
+          sys { id }
+          eyebrow
+          title
+          description
+          ctaLabel
+          ctaLink
+          formTitle
+          emailPlaceholder
+        }
+      }
+    }
+  `;
+
+  const data = await graphql<{
+    argusheroCollection: { items: any[] };
+  }>(QUERY, { limit: 1 });
+
+  const item = data.argusheroCollection.items[0];
+  if (!item) throw new Error("No Hero section found");
+
+  return mapHeroSectionEntry(item);
+}
+
 
 export async function getBentoSection() {
   const QUERY = `

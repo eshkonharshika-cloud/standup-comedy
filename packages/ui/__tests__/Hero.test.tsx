@@ -6,7 +6,8 @@ describe('Hero component', () => {
     render(<Hero headlineTop="Top" headlineAccent="Accent" subtext="hello" />)
     expect(screen.getByText(/Top/)).toBeInTheDocument()
     expect(screen.getByText(/Accent/)).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /Search|Explore/ })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /Search/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /Explore/i })).toBeInTheDocument()
   })
 
   it('renders with only required props', () => {

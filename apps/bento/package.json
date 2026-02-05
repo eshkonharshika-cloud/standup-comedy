@@ -12,6 +12,7 @@
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "lucide-react": "^0.474.0",
     "@standup/cms": "workspace:^1.0.0",
     "@standup/contracts": "workspace:^0.0.1"
   },

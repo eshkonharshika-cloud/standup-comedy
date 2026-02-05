@@ -1,87 +1,102 @@
 "use client";
 
-import { useState } from "react";
-import type { BentoSection } from "@standup/contracts/bento";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import type { BentoSection } from "@standup/contracts/argus/bento";
 
 interface BentoSectionProps {
   data: BentoSection;
 }
 
 export default function BentoSection({ data }: BentoSectionProps) {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Reduced height since images are gone
+  const stepHeight = 350; 
+  const boxSize = 200; // The height of your purple box
+  const totalHeight = stepHeight * data.cards.length;
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  // Numbers move exactly one 'stepHeight' per card
+  const translateY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, -(stepHeight * (data.cards.length - 1))]
+  );
 
   return (
-    <section className="bg-[#00051a] py-24 min-h-screen">
-      <div className="mx-auto max-w-7xl px-6">
-        <h2 className="mb-16 text-6xl font-bold text-center tracking-tight text-white">
+    <section
+      ref={containerRef}
+      className="bg-gradient-to-br from-[#020b2d] to-[#041463] py-32 text-white"
+      // We add some extra height at the end so the last card stays in view
+      style={{ minHeight: totalHeight + 400 }}
+    >
+      <div className="mx-auto  max-w-7xl px-6">
+        <h2 className="mb-24  text-6xl font-bold uppercase tracking-tight">
           {data.title}
         </h2>
 
-        {/* 5-column grid allows for easy 60/40 (3 cols vs 2 cols) distribution */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-          {data.cards.map((card, index) => {
-            const isActive = activeIndex === index;
-            const isDimmed = activeIndex !== null && !isActive;
-            
-            // Logic for 60/40 swap
-            const isEvenRow = Math.floor(index / 2) % 2 === 0;
-            const isFirstInRow = index % 2 === 0;
-            const colSpan = isEvenRow 
-              ? (isFirstInRow ? "md:col-span-3" : "md:col-span-2") // 60% | 40%
-              : (isFirstInRow ? "md:col-span-2" : "md:col-span-3"); // 40% | 60%
+        <div className="relative flex flex-col md:flex-row gap-12 lg:gap-24">
+          
+          {/* LEFT SIDE: Sticky Box */}
+          <div className="md:w-1/3 relative">
+            <div 
+              className="sticky top-1/2 -translate-y-1/2" 
+              style={{ height: boxSize, width: boxSize }}
+            >
+              {/* Purple Box */}
+              <div className="absolute inset-0 z-10 rounded-3xl bg-[#5D50E6]" />
 
-            return (
-              <div
-                key={card.id}
-                onMouseEnter={() => setActiveIndex(index)}
-                onMouseLeave={() => setActiveIndex(null)}
-                className={`group relative h-[400px] overflow-hidden rounded-3xl transition-all duration-700 ease-in-out ${colSpan} ${
-                  isDimmed ? "opacity-40 scale-[0.98]" : "opacity-100 scale-100"
-                }`}
-              >
-                {/* Image Component */}
-                <img
-                  src={card.imageUrl}
-                  alt={card.imageAlt ?? ""}
-                  className={`h-full w-full object-cover transition-transform duration-1000 ease-out ${
-                    isActive ? "scale-110" : "scale-100"
-                  }`}
-                />
+              {/* Moving Numbers */}
+              <div className="absolute inset-0 z-10 overflow-hidden rounded-3xl">
+                <motion.div
+                  style={{ y: translateY }}
+                  className="flex flex-col items-center"
+                >
+                  {data.cards.map((_, index) => (
+                    <div
+                      key={index}
+                      style={{ height: stepHeight }}
+                      className="flex shrink-0 items-center justify-center w-full"
+                    >
+                      {/* Reduced font size slightly for better fit if needed */}
+                      <span className="text-[10rem] font-bold leading-none select-none">
+                        {index + 1}
+                      </span>
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
+            </div>
+          </div>
 
-                {/* Attractive Overlay: Gradient + Text */}
-                <div className={`absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-[#00051a] via-[#00051a]/20 to-transparent p-8 transition-opacity duration-500`}>
-                  
-                  {/* Label - Always visible but pops on hover */}
-                  <span className={`mb-2 text-lg font-bold uppercase tracking-[0.2em] transition-colors duration-500 ${
-                    isActive ? "text-blue-400" : "text-neutral-400"
-                  }`}>
-                    {card.label}
-                  </span>
+          {/* RIGHT SIDE: Text Content */}
+          <div className="md:w-2/3">
+            <div className="flex flex-col">
+              {data.cards.map((card) => (
+                <div
+                  key={card.id}
+                  style={{ height: stepHeight }}
+                  className="flex flex-col justify-center border-t border-white/10 first:border-none"
+                >
+                  <div className="space-y-6">
+                    <h3 className="text-5xl font-bold uppercase tracking-tight">
+                      {card.title}
+                    </h3>
 
-                  {/* Title - Moves up on hover */}
-                  <h3 className={`text-3xl font-bold text-white transition-transform duration-500 ease-out ${
-                    isActive ? "-translate-y-2" : "translate-y-0"
-                  }`}>
-                    {card.title}
-                  </h3>
-                  
-                  {/* Description - Fades in and slides up */}
-                  <div className={`overflow-hidden transition-all duration-500 ease-out ${
-                    isActive ? "max-h-24 opacity-100 translate-y-0 mt-3" : "max-h-0 opacity-0 translate-y-4"
-                  }`}>
-                    <p className="text-lg leading-relaxed text-neutral-300">
+                    <p className="text-xl leading-relaxed text-neutral-400 max-w-2xl">
                       {card.description}
                     </p>
                   </div>
                 </div>
+              ))}
+            </div>
+          </div>
 
-                {/* Inner Border Glow */}
-                <div className={`absolute inset-0 rounded-3xl border border-white/10 transition-opacity duration-500 ${
-                  isActive ? "opacity-100" : "opacity-0"
-                }`} />
-              </div>
-            );
-          })}
         </div>
       </div>
     </section>

@@ -20,6 +20,13 @@
     "./comic": "./comic/index.ts",
     "./herosection": "./herosection/index.ts",
     "./blog": "./blog/index.ts",
-    "./bento": "./bento/index.ts"
+    "./argus/bento": "./argus/bento/index.ts",
+    "./argus/hero": "./argus/hero/index.ts",
+    "./argus/featurevideo": "./argus/featurevideo/index.ts",
+    "./argus/propcard": "./argus/propcard/index.ts",
+    "./argus/testimonial": "./argus/testimonial/index.ts",
+    "./argus/faq": "./argus/faq/index.ts",
+    "./argus/capabilities": "./argus/capabilities/index.ts",
+    "./argus/product_realeses": "./argus/product_realeses/index.ts"
   }
 }
