@@ -414,7 +414,7 @@ export default function UniversalEditor({ initialAllData }: UniversalEditorProps
                         )}
                         <div>
                             <div className="text-[10px] font-black text-blue-600 uppercase tracking-widest">{selectedComponent} - Item {currentItemIndex + 1}</div>
-                            <h4 className="text-lg font-black text-slate-800">{currentItem.title || currentItem.label || "Mapping Focus"}</h4>
+                            <h2 className="text-lg font-black text-slate-800">{currentItem.title || currentItem.label || "Mapping Focus"}</h2>
                         </div>
                     </div>
 
@@ -431,7 +431,9 @@ export default function UniversalEditor({ initialAllData }: UniversalEditorProps
                                             <span className="text-slate-300 font-normal">({field.key})</span>
                                         </label>
                                         <div className="relative">
+                                            <label htmlFor={`mapping-select-${field.key}`} className="sr-only">Map {field.label} to source</label>
                                             <select
+                                                id={`mapping-select-${field.key}`}
                                                 value={mappedTo || ""}
                                                 onChange={(e) => handleApplyMapping(field.key, e.target.value)}
                                                 className={`appearance-none pl-3 pr-8 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-tight border transition-all cursor-pointer ${mappedTo ? "bg-blue-600 border-blue-600 text-white" : "bg-slate-100 border-slate-200 text-slate-600"}`}
@@ -473,6 +475,7 @@ export default function UniversalEditor({ initialAllData }: UniversalEditorProps
                     <div className="flex items-center gap-2">
                         <button
                             onClick={() => setIsNavOpen(!isNavOpen)}
+                            aria-label={isNavOpen ? "Close side navigation" : "Open side navigation"}
                             className="p-2 hover:bg-slate-50 rounded-lg text-slate-400 transition-colors mr-2"
                         >
                             <Layout size={18} className={isNavOpen ? "text-blue-600" : ""} />
@@ -525,9 +528,10 @@ export default function UniversalEditor({ initialAllData }: UniversalEditorProps
                 {/* LEFT SIDEBAR: Navigation & Selector (Collapsible) */}
                 <aside className={`bg-white border-r border-slate-200 flex flex-col transition-all duration-300 ease-in-out ${isNavOpen ? "w-72" : "w-0 opacity-0 -translate-x-full overflow-hidden"}`}>
                     <div className="p-4 border-b border-slate-100 mb-2">
-                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block mb-3">Select Component</label>
+                        <label htmlFor="component-select" className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block mb-3">Select Component</label>
                         <div className="relative">
                             <select
+                                id="component-select"
                                 value={selectedComponent}
                                 onChange={(e) => {
                                     setSelectedComponent(e.target.value as ComponentType);
@@ -595,6 +599,7 @@ export default function UniversalEditor({ initialAllData }: UniversalEditorProps
                                     <button
                                         onClick={() => setCurrentItemIndex(prev => Math.max(0, prev - 1))}
                                         disabled={currentItemIndex === 0}
+                                        aria-label="Previous item"
                                         className="p-2 hover:bg-slate-50 rounded-lg text-slate-400 disabled:opacity-20 transition-colors"
                                     >
                                         <ChevronLeft size={16} />
@@ -603,6 +608,7 @@ export default function UniversalEditor({ initialAllData }: UniversalEditorProps
                                     <button
                                         onClick={() => setCurrentItemIndex(prev => Math.min(items.length - 1, prev + 1))}
                                         disabled={currentItemIndex >= items.length - 1}
+                                        aria-label="Next item"
                                         className="p-2 hover:bg-slate-50 rounded-lg text-slate-400 disabled:opacity-20 transition-colors"
                                     >
                                         <ChevronRight size={16} />

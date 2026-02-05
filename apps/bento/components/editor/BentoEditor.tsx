@@ -186,9 +186,9 @@ export default function BentoEditor({ initialData }: BentoEditorProps) {
                     className="w-full bg-transparent border-none outline-none text-xl font-black leading-tight text-center"
                 />
             ) : (
-                <h3 className={`text-xl font-black leading-tight ${selectedField?.cardIndex === currentCardIndex && selectedField.fieldName === "title" ? "text-white" : "text-slate-800"}`}>
+                <h2 className={`text-xl font-black leading-tight ${selectedField?.cardIndex === currentCardIndex && selectedField.fieldName === "title" ? "text-white" : "text-slate-800"}`}>
                     {currentCard.title}
-                </h3>
+                </h2>
             )}
             {selectedField?.cardIndex === currentCardIndex && selectedField.fieldName === "title" && (
                 <span className="text-[8px] font-black absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-blue-600 text-white rounded shadow-sm uppercase tracking-tighter">Selected</span>

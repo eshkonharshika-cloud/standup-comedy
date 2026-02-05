@@ -19,7 +19,7 @@ export default function TestimonialSection({
   return (
     <section className="bg-gradient-to-br from-[#020b2d] to-[#041463]py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <h1 className="text-7xl text-center font-bold text-white">Testimonial</h1>
+        <h2 className="text-7xl text-center font-bold text-white">Testimonial</h2>
         <div className="grid items-center gap-12 rounded-3xl bg-[#020b2d] p-10 md:grid-cols-2 md:p-16">
           {/* Left: Image */}
           <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl">
@@ -66,7 +66,7 @@ export default function TestimonialSection({
               </div>
 
               {(data.authorRole || data.authorCompany) && (
-                <div className="mt-1 text-sm text-white/60">
+                <div className="mt-1 text-sm text-white/80">
                   {data.authorRole}
                   {data.authorRole &&
                     data.authorCompany &&

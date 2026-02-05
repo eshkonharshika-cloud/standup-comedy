@@ -24,7 +24,7 @@ export default function FeatureHighlightSection({
   useEffect(() => {
     if (isInView && audioRef.current) {
       audioRef.current.volume = 0;
-      audioRef.current.play().catch(() => {});
+      audioRef.current.play().catch(() => { });
     }
   }, [isInView]);
 
@@ -48,7 +48,7 @@ export default function FeatureHighlightSection({
           <iframe
             className="w-full h-full scale-[1.5]"
             src="https://www.youtube.com/embed/KcuIflXVR_s?autoplay=1&mute=0&controls=0&loop=1&playlist=KcuIflXVR_s"
-            title="Feature video"
+            title="Feature Experience Highlight Video"
             frameBorder="0"
             allow="autoplay; encrypted-media; picture-in-picture"
             allowFullScreen
@@ -97,9 +97,8 @@ export default function FeatureHighlightSection({
             >
               <span className="relative flex h-3 w-3">
                 <span
-                  className={`absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75 ${
-                    !expanded && "animate-ping"
-                  }`}
+                  className={`absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75 ${!expanded && "animate-ping"
+                    }`}
                 />
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500" />
               </span>

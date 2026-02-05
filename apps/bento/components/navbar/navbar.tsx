@@ -9,7 +9,7 @@ export default function TopNavbar() {
       <div className="max-w-[1440px] mx-auto flex items-center justify-end h-12 px-6 gap-9">
 
         {/* Search Icon */}
-        <button className="hover:text-blue-400 transition-colors">
+        <button className="hover:text-blue-400 transition-colors" aria-label="Search">
           <Search size={18} strokeWidth={2.5} />
         </button>
 

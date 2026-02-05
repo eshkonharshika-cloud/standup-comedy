@@ -12,7 +12,7 @@ export default function BentoSection({ data }: BentoSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Reduced height since images are gone
-  const stepHeight = 350; 
+  const stepHeight = 350;
   const boxSize = 200; // The height of your purple box
   const totalHeight = stepHeight * data.cards.length;
 
@@ -36,16 +36,16 @@ export default function BentoSection({ data }: BentoSectionProps) {
       style={{ minHeight: totalHeight + 400 }}
     >
       <div className="mx-auto  max-w-7xl px-6">
-        <h2 className="mb-24  text-6xl font-bold uppercase tracking-tight">
+        <h2 className="mb-24 text-6xl font-bold uppercase tracking-tight">
           {data.title}
         </h2>
 
         <div className="relative flex flex-col md:flex-row gap-12 lg:gap-24">
-          
+
           {/* LEFT SIDE: Sticky Box */}
           <div className="md:w-1/3 relative">
-            <div 
-              className="sticky top-1/2 -translate-y-1/2" 
+            <div
+              className="sticky top-1/2 -translate-y-1/2"
               style={{ height: boxSize, width: boxSize }}
             >
               {/* Purple Box */}
@@ -84,11 +84,11 @@ export default function BentoSection({ data }: BentoSectionProps) {
                   className="flex flex-col justify-center border-t border-white/10 first:border-none"
                 >
                   <div className="space-y-6">
-                    <h3 className="text-5xl font-bold uppercase tracking-tight">
+                    <h2 className="text-5xl font-bold uppercase tracking-tight">
                       {card.title}
-                    </h3>
+                    </h2>
 
-                    <p className="text-xl leading-relaxed text-neutral-400 max-w-2xl">
+                    <p className="text-xl leading-relaxed text-neutral-200 max-w-2xl">
                       {card.description}
                     </p>
                   </div>

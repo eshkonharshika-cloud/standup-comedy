@@ -91,8 +91,8 @@ export default function ArgusDiscoverSection({
                 ? "md:col-span-3"
                 : "md:col-span-2"
               : isFirstInRow
-              ? "md:col-span-2"
-              : "md:col-span-3";
+                ? "md:col-span-2"
+                : "md:col-span-3";
 
             return (
               <div
@@ -103,40 +103,36 @@ export default function ArgusDiscoverSection({
                 onMouseLeave={() =>
                   setActiveIndex(null)
                 }
-                className={`group relative h-[420px] overflow-hidden rounded-3xl transition-all duration-700 ease-in-out ${colSpan} ${
-                  isDimmed
+                className={`group relative h-[420px] overflow-hidden rounded-3xl transition-all duration-700 ease-in-out ${colSpan} ${isDimmed
                     ? "opacity-40 scale-[0.98]"
                     : "opacity-100 scale-100"
-                }`}
+                  }`}
               >
                 {/* Media */}
                 <div
-                  className={`absolute inset-0 transition-transform duration-1000 ease-out ${
-                    isActive ? "scale-110" : "scale-100"
-                  }`}
+                  className={`absolute inset-0 transition-transform duration-1000 ease-out ${isActive ? "scale-110" : "scale-100"
+                    }`}
                 >
                   <MediaBackground card={card} />
                 </div>
 
                 {/* Overlay */}
                 <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-[#00051a] via-[#00051a]/30 to-transparent p-8">
-                  <h3
-                    className={`text-3xl font-bold text-white transition-transform duration-500 ${
-                      isActive
+                  <h2
+                    className={`text-3xl font-bold text-white transition-transform duration-500 ${isActive
                         ? "-translate-y-2"
                         : "translate-y-0"
-                    }`}
+                      }`}
                   >
                     {card.title}
-                  </h3>
+                  </h2>
 
                   {card.subtitle && (
                     <div
-                      className={`overflow-hidden transition-all duration-500 ${
-                        isActive
+                      className={`overflow-hidden transition-all duration-500 ${isActive
                           ? "max-h-24 opacity-100 mt-3"
                           : "max-h-0 opacity-0"
-                      }`}
+                        }`}
                     >
                       <p className="text-lg text-neutral-300">
                         {card.subtitle}
@@ -157,11 +153,10 @@ export default function ArgusDiscoverSection({
 
                 {/* Glow */}
                 <div
-                  className={`pointer-events-none absolute inset-0 rounded-3xl border border-white/10 transition-opacity duration-500 ${
-                    isActive
+                  className={`pointer-events-none absolute inset-0 rounded-3xl border border-white/10 transition-opacity duration-500 ${isActive
                       ? "opacity-100"
                       : "opacity-0"
-                  }`}
+                    }`}
                 />
               </div>
             );

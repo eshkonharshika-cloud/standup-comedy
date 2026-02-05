@@ -59,10 +59,9 @@ export default function SubNavbar() {
                 className={`
                   relative whitespace-nowrap pb-2 text-xs md:text-sm font-semibold
                   transition-colors
-                  ${
-                    isActive
-                      ? "text-neutral-900"
-                      : "text-neutral-400 hover:text-neutral-700"
+                  ${isActive
+                    ? "text-neutral-900"
+                    : "text-neutral-700 hover:text-neutral-900"
                   }
                 `}
               >

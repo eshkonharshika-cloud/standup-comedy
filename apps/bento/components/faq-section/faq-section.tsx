@@ -32,11 +32,10 @@ export function FaqStatsSection({ data }: Props) {
               </div>
 
               <p
-                className={`text-sm leading-relaxed ${
-                  index === data.stats.length - 1
+                className={`text-sm leading-relaxed ${index === data.stats.length - 1
                     ? "text-white/90"
                     : "text-gray-600"
-                }`}
+                  }`}
               >
                 {stat.label}
               </p>
@@ -64,6 +63,8 @@ export function FaqStatsSection({ data }: Props) {
                       setOpenIndex(isOpen ? null : index)
                     }
                     className="w-full flex items-center justify-between text-left"
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-answer-${index}`}
                   >
                     <span className="text-lg font-medium text-gray-900">
                       {faq.question}
@@ -77,7 +78,10 @@ export function FaqStatsSection({ data }: Props) {
                   </button>
 
                   {isOpen && (
-                    <p className="mt-4 text-gray-600 leading-relaxed">
+                    <p
+                      id={`faq-answer-${index}`}
+                      className="mt-4 text-gray-600 leading-relaxed"
+                    >
                       {faq.answer}
                     </p>
                   )}
